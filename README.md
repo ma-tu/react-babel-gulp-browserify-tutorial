@@ -2,15 +2,20 @@
 
 react-babel-gulp-browserify-tutorial の master ブランチの tutorial 成果物を ECMA2015(ECMA6) で書き直したものになります。
 
-react-babel-gulp-browserify-tutorial は babel(babelify) を利用してしているので、せっかくなので ECMA2015(ECMA6) で利用可能な　クラスや アロー関数を利用して書いてみたらどうなるのかを試してみたものになります。
+react-babel-gulp-browserify-tutorial は babel(babelify) を利用しているので、せっかくなので ECMA2015(ECMA6) で利用可能なクラスやアロー関数を利用して書いてみたらどうなるのかを試してみたものになります。
 
-書き直し作業は以下を写経するような形で対応していました。本当に感謝です。
-[React TutorialをES6で書きなおしてみた](http://sadah.hatenablog.com/entry/2015/08/03/085828)
-[ES6版React.jsチュートリアル](http://qiita.com/nownabe/items/2d8b92d95186c3941de0)
+書き直し作業は以下を写経するような形で対応していました。本当に感謝です。  
+* [React TutorialをES6で書きなおしてみた](http://sadah.hatenablog.com/entry/2015/08/03/085828)
+* [ES6版React.jsチュートリアル](http://qiita.com/nownabe/items/2d8b92d95186c3941de0)
 
 ## ES6 への変換箇所
 
 変換の説明は上記の参考サイトが詳しいので、そちらを参照いただく方がよいかと思いますが、私の理解した範囲で簡単にポイントを列挙します。
+
+変更箇所の一覧は以下で確認可能です。  
+(README.md の変更は無視してください。)
+
+[GitHubのbranch間のdiff](https://github.com/ma-tu/react-babel-gulp-browserify-tutorial/compare/master...es6)
 
 ### import の利用
 
@@ -77,8 +82,8 @@ constructor(props) {
 
 ### this の解決
 
-this が解決できなくなっているので（何故解決できなくなったのかはまだ理解していないです。）.bind(this) を付けて対応するのでもよいが、  
-せっかくだから => アローを利用して対応する。
+this が解決できなくなっているので（何故解決できなくなったのかはまだ理解していないです。）.bind(this) を付けて対応するのでもよいが、せっかくだから アロー関数を利用して対応します。
+
 function(arg){...}.bind(this) は (arg) => {} で置き換えます。
 
 こういう関数呼び出しの部分を
@@ -101,7 +106,7 @@ success: function(data) {
 success: (data) => this.setState({data: data}),
 ```
 
-### let　の利用
+### let の利用
 
 せっかくだから var を let に置き換えます。
 
@@ -109,8 +114,7 @@ success: (data) => this.setState({data: data}),
 
 ES6書き直しと直接的に関係ないが、Reactのコンポーネントファイルを分割して見通しを良くします。
 
-各クラスファイルを以下な感じに修正する。  
-import は各クラスで必要な部分を宣言。  
+各クラスファイルを以下な感じに修正する。import は各クラスで必要な部分を宣言します。  
 クラス名の先頭に export default をつけておかないと外部から利用できないので注意。  
 
 ```js
@@ -123,6 +127,8 @@ export default class CommentBox extends React.Component{
   ・・・
 }
 ```
+
+---
 
 ## 利用方法
 ※ node / npm はインストール済みであることを前提とします。
@@ -162,32 +168,12 @@ npm install
 gulp
 ```
 
+適当なブラウザで [http://localhost:3000/] にアクセスします。
+
 終了は CTRL + C です。
 
-### 5. 学習開始
-
-適当なブラウザで http://localhost:3000/ にアクセスします。初期状態では Tutorial を完了した状態で起動します。  
-動いていることを確認したら、CTRL + C で一旦終了します。
-
-Tutorial では index.html の scriptタグ を利用して学習を進めるようになっていますが、gulp により /src/jsx/example.jsx を変更すると、自動でサーバーが再起動されるようになっているので、/src/jsx/example.jsx を編集しながら学習を進めてください。  
-※編集して保存すると自動でサーバーは更新されますが、ブラウザのリロードは特に制御していないので、ブラウザの更新は行ってください。
-
-Tutorial の Your first component: の CommentBox コンポーネント作成のコードを /src/jsx/example.jsx に張り付けて、 gulp コマンドでサーバーを起動して学習を始めましょう。
-
-git clone にて環境を作成した場合は以下のブランチ変更を利用して学習を始めることも可能です。
-```
-git checkout start
-```
-
-Tutorialを参考にしながら、 /src/jsx/example.jsx を変更して React.js を体験しましょう。
-
-### 6. 学習が終了したら
-
-上記で利用したフォルダを削除するだけで特にゴミは残りません。利用した gulp をどうしても削除しておきたい場合は、1. gulp の インストール を参考にしてください。
-
-後はReact.js の他のサンプルをみたり、はやりの React.js + redux を試してみるのもよいと思います。
-
 ---
+
 # gulpfile の説明
 
 ## browserify と babel(babelify)
