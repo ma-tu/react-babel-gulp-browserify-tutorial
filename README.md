@@ -149,9 +149,11 @@ npm uninstall -g gulp
 ```
 
 ### 2. ファイルの配置
-以下のコマンドで clone するか [こちら](https://github.com/ma-tu/react-babel-gulp-browserify-tutorial/archive/master.zip)を Download ZIP して任意のフォルダに配置します。
+以下のコマンドで clone するか [こちら](https://github.com/ma-tu/react-babel-gulp-browserify-tutorial/archive/es6.zip)を Download ZIP して任意のフォルダに配置します。
 ```
 git clone https://github.com/ma-tu/react-babel-gulp-browserify-tutorial.git
+cd react-babel-gulp-browserify-tutorial
+git checkout es6
 ```
 
 ### 3. 必要なライブラリの取得
@@ -165,7 +167,7 @@ npm install
 以下コマンドを実行すると、簡易サーバーを起動します。Tutorial で利用する server.js と共に Tutorial のソースをコンパイルして起動します。
 
 ```
-gulp
+gulpgit
 ```
 
 適当なブラウザで [http://localhost:3000/] にアクセスします。
