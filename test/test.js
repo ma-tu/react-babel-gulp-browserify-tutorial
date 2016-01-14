@@ -18,11 +18,11 @@ describe('ES6 Test', () => {
          assert(true);
      });
      before(function(done) {
-       console.log("before");
+       //console.log("before");
        done();
      });
      after(function(done) {
-       console.log("after");
+       //console.log("after");
        done();
      });
      beforeEach(function(done) {

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --compilers js:espower-babel/guess test/**/*.js"
+    "test": "mocha --compilers js:espower-babel/guess test/**/*.js --require ./test/setup.js"
   },
   "dependencies": {
     "jquery": "^2.1.4",
@@ -23,8 +23,10 @@
     "espower-babel": "^4.0.1",
     "express": "^4.13.3",
     "gulp-nodemon": "^2.0.6",
+    "jsdom": "^7.2.2",
     "mocha": "^2.3.4",
     "power-assert": "^1.2.0",
+    "react-addons-test-utils": "^0.14.6",
     "vinyl-source-stream": "^1.1.0"
   }
 }

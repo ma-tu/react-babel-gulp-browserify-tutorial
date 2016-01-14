@@ -5,8 +5,10 @@ import CommentForm from './commentForm.jsx';
 
 export default class CommentBox extends React.Component{
   componentDidMount() {
-    this.loadCommentsFromServer();
-    setInterval( () => this.loadCommentsFromServer(), this.props.pollInterval);
+    if (this.props.url.length > 0){
+      this.loadCommentsFromServer();
+      setInterval( () => this.loadCommentsFromServer(), this.props.pollInterval);
+    }
   }
 
   loadCommentsFromServer() {
@@ -28,19 +30,21 @@ export default class CommentBox extends React.Component{
     let newComments = comments.concat([comment]);
     this.props.setComments(newComments)
 
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      type: 'POST',
-      data: comment,
-      success: (data) => {
-        this.props.setComments(data)
-      },
-      error: (xhr, status, err) => {
-        this.setState({data: comments});
-        console.error(this.props.url, status, err.toString());
-      }
-    });
+    if (this.props.url.length > 0){
+      $.ajax({
+        url: this.props.url,
+        dataType: 'json',
+        type: 'POST',
+        data: comment,
+        success: (data) => {
+          this.props.setComments(data)
+        },
+        error: (xhr, status, err) => {
+          this.setState({data: comments});
+          console.error(this.props.url, status, err.toString());
+        }
+      });
+    }
   }
 
   render() {
