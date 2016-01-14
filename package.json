@@ -2,7 +2,9 @@
   "name": "react-babel-gulp-browserify-tutorial",
   "version": "1.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "test": "mocha --compilers js:espower-babel/guess test/**/*.js"
+  },
   "dependencies": {
     "jquery": "^2.1.4",
     "marked": "^0.3.5",
@@ -15,8 +17,11 @@
     "babelify": "^7.2.0",
     "body-parser": "^1.14.2",
     "browserify": "^12.0.1",
+    "espower-babel": "^4.0.1",
     "express": "^4.13.3",
     "gulp-nodemon": "^2.0.6",
+    "mocha": "^2.3.4",
+    "power-assert": "^1.2.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }
