@@ -4,11 +4,6 @@ import CommentList from './commentList.jsx';
 import CommentForm from './commentForm.jsx';
 
 export default class CommentBox extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {data: []};
-  }
-
   componentDidMount() {
     this.loadCommentsFromServer();
     setInterval( () => this.loadCommentsFromServer(), this.props.pollInterval);
@@ -19,24 +14,28 @@ export default class CommentBox extends React.Component{
       url: this.props.url,
       dataType: 'json',
       cache: false,
-      success: (data) => this.setState({data: data}),
+      success: (data) => {
+        this.props.setComments(data)
+      },
       error: (xhr, status, err) => console.error(this.props.url, status, err.toString())
     });
   }
 
   handleCommentSubmit(comment) {
-    let comments = this.state.data;
+    let comments = this.props.comments;
     comment.id = Date.now();
 
     let newComments = comments.concat([comment]);
-    this.setState({data: newComments});
+    this.props.setComments(newComments)
 
     $.ajax({
       url: this.props.url,
       dataType: 'json',
       type: 'POST',
       data: comment,
-      success: (data) => this.setState({data: data}),
+      success: (data) => {
+        this.props.setComments(data)
+      },
       error: (xhr, status, err) => {
         this.setState({data: comments});
         console.error(this.props.url, status, err.toString());
@@ -48,7 +47,7 @@ export default class CommentBox extends React.Component{
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList data={this.state.data} />
+        <CommentList data={this.props.comments} />
         <CommentForm onCommentSubmit={(e) => this.handleCommentSubmit(e)} />
       </div>
     );

@@ -9,7 +9,10 @@
     "jquery": "^2.1.4",
     "marked": "^0.3.5",
     "react": "^0.14.5",
-    "react-dom": "^0.14.5"
+    "react-dom": "^0.14.5",
+    "react-redux": "^4.0.6",
+    "redux": "^3.0.5",
+    "redux-logger": "^2.3.2"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",

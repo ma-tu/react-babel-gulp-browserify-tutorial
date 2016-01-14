@@ -5,7 +5,7 @@ var source = require('vinyl-source-stream');
 var nodemon = require('gulp-nodemon');
 
 var config = {
-  watchFiles: './src/jsx/*.jsx',
+  watchFiles: ['./src/jsx/*.jsx','./src/**/*.js'],
   entryFile: './src/jsx/example.jsx',
   destDir: './public/scripts/',
   destFile: 'example.js',
