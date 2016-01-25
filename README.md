@@ -1,132 +1,18 @@
-# react-babel-gulp-browserify-tutorial の branch : es6 について
+# react-babel-gulp-browserify-tutorial の branch : es6-redux について
 
-react-babel-gulp-browserify-tutorial の master ブランチの tutorial 成果物を ECMA2015(ECMA6) で書き直したものになります。
+react-babel-gulp-browserify-tutorial の master ブランチの tutorial 成果物を 最近はやりのFluxのライブラリである(Redux)を利用して書き直したものになります。  
+またECMA2015(ECMA6) を利用して記述しています。  
+ECMA6 はこれからの JavaScript で書くのが当たり前になってくると強く感じます。
 
-react-babel-gulp-browserify-tutorial は babel(babelify) を利用しているので、せっかくなので ECMA2015(ECMA6) で利用可能なクラスやアロー関数を利用して書いてみたらどうなるのかを試してみたものになります。
+React の入門に合わせて Redux にも入門してみましょう。
 
-書き直し作業は以下を写経するような形で対応していました。本当に感謝です。  
-* [React TutorialをES6で書きなおしてみた](http://sadah.hatenablog.com/entry/2015/08/03/085828)
-* [ES6版React.jsチュートリアル](http://qiita.com/nownabe/items/2d8b92d95186c3941de0)
+書き直し作業は以下を参考にして対応しました。本当に感謝です。
 
-## ES6 への変換箇所
+* [Redux の本家ページ](http://rackt.org/redux/index.html)
+* [Redux入門 Reduxとは（公式ドキュメント和訳）](http://qiita.com/kiita312/items/b001839150ab04a6a427)
+* [ReduxとES6でReact.jsのチュートリアルの写経](http://blog.bokuweb.me/entry/redux-tutorial)
 
-変換の説明は上記の参考サイトが詳しいので、そちらを参照いただく方がよいかと思いますが、私の理解した範囲で簡単にポイントを列挙します。
-
-変更箇所の一覧は以下で確認可能です。  
-(README.md の変更は無視してください。)
-
-[GitHubのbranch間のdiff](https://github.com/ma-tu/react-babel-gulp-browserify-tutorial/compare/master...es6)
-
-### import の利用
-
-require していた部分は
-```js
-var React = require('react');
-```
-
-以下のように import に置き換える。
-```js
-import React  from 'react';
-```
-
-ES6書き直し と直接的には関係ないが marked , jquery も package.json の dependencies に追加して
-上記の import で利用するようにした。これにより index.html での 余計な script読込部分が削除可能です。
-
-### React.createClass を React.Comporent のクラス継承で表現
-
-以下のような React.CreateClass を
-```js
-var CommentBox = React.createClass({
-  //
-});
-```
-以下のように置き換えます。
-```js
-class CommentForm extends React.Component {
-  //
-};
-```
-
-また class対応により、function も以下のように置き換えます。
-
-これを
-```js
-render: function() {
-  //
-},
-```
-以下のように置き換えます。  
-カンマが不要になり、関数の定義がすっきりします。
-```js
-render() {
-  //
-}
-```
-
-### constructor の利用
-
-クラス対応と合わせて getInitialState が利用できなくなっているので対応必要です。  
-以下のような state の初期化を
-```js
-getInitialState() {
-  return {data: []};
-}
-```
-以下のようにコンストラクタで置き換えます。
-```js
-constructor(props) {
-  super(props);
-  this.state = {data: []};
-}
-```
-
-### this の解決
-
-this が解決できなくなっているので（何故解決できなくなったのかはまだ理解していないです。）.bind(this) を付けて対応するのでもよいが、せっかくだから アロー関数を利用して対応します。
-
-function(arg){...}.bind(this) は (arg) => {} で置き換えます。
-
-こういう関数呼び出しの部分を
-```js
-this.handleAuthorChange
-```
-以下な感じで置き換えます。
-```js
-(e) => this.handleAuthorChange(e)
-```
-
-合わせて以下のような部分も
-```js
-success: function(data) {
-  this.setState({data: data});
-}.bind(this),
-```
- => を利用して以下な感じに修正
- ```js
-success: (data) => this.setState({data: data}),
-```
-
-### let の利用
-
-せっかくだから var を let に置き換えます。
-
-### ファイル分割
-
-ES6書き直しと直接的に関係ないが、Reactのコンポーネントファイルを分割して見通しを良くします。
-
-各クラスファイルを以下な感じに修正する。import は各クラスで必要な部分を宣言します。  
-クラス名の先頭に export default をつけておかないと外部から利用できないので注意。  
-
-```js
-import React from 'react'
-import $      from 'jquery';
-import CommentList from './commentList.jsx';
-import CommentForm from './commentForm.jsx';
-
-export default class CommentBox extends React.Component{
-  ・・・
-}
-```
+また合わせて Mocha + power-assert を利用して、UnitTestも追加しました。 React + Redux はテストしやすいのでこの点でも評価高いと感じました。
 
 ---
 
@@ -149,11 +35,11 @@ npm uninstall -g gulp
 ```
 
 ### 2. ファイルの配置
-以下のコマンドで clone するか [こちら](https://github.com/ma-tu/react-babel-gulp-browserify-tutorial/archive/es6.zip)を Download ZIP して任意のフォルダに配置します。
+以下のコマンドで clone するか [こちら](https://github.com/ma-tu/react-babel-gulp-browserify-tutorial/archive/es6-redux.zip)を Download ZIP して任意のフォルダに配置します。
 ```
 git clone https://github.com/ma-tu/react-babel-gulp-browserify-tutorial.git
 cd react-babel-gulp-browserify-tutorial
-git checkout es6
+git checkout es6-redux
 ```
 
 ### 3. 必要なライブラリの取得
@@ -167,7 +53,7 @@ npm install
 以下コマンドを実行すると、簡易サーバーを起動します。Tutorial で利用する server.js と共に Tutorial のソースをコンパイルして起動します。
 
 ```
-gulpgit
+gulp
 ```
 
 適当なブラウザで [http://localhost:3000/] にアクセスします。
