@@ -11,6 +11,23 @@ React.js の version は 0.14.5 で 2016年1月時点のライブラリで作成
 
 この [React v0.14 チュートリアル【日本語翻訳】](http://mae.chab.in/archives/2762) は本当に感謝です。
 
+---
+
+## react-babel-gulp-browserify-tutorial の es6 ブランチについて
+
+react-babel-gulp-browserify-tutorial の master ブランチの tutorial 成果物を ECMA2015(ECMA6) で書き直したものになります。
+
+react-babel-gulp-browserify-tutorial は babel(babelify) を利用しているので、せっかくなので ECMA2015(ECMA6) で利用可能なクラスやアロー関数を利用して書いてみたらどうなるのかを試してみたものになります。
+
+## react-babel-gulp-browserify-tutorial の es6-redux ブランチについて
+
+react-babel-gulp-browserify-tutorial の master ブランチの tutorial 成果物を 最近はやりのFluxのライブラリである(Redux)を利用して書き直したものになります。
+またECMA2015(ECMA6) を利用して記述しています。
+
+また合わせて Mocha + power-assert を利用して、UnitTestも追加しました。 React + Redux はテストしやすいのでこの点でも評価高いと感じました。
+
+---
+
 ## 利用方法
 ※ node / npm はインストール済みであることを前提とします。
 
